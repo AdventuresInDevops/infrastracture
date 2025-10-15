@@ -22,7 +22,7 @@ const stackProvider = {
           Type: 'AWS::Route53::HostedZone',
           Properties: {
             HostedZoneConfig: {
-              Comment: 'The Hosted Zone. Created separately from the Domain'
+              Comment: 'The Hosted Zone. Created separately from the Domain through the cloudformation template.'
             },
             Name: { Ref: 'hostedName' }
           }
