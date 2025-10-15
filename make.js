@@ -66,10 +66,7 @@ commander
 .command('deploy')
 .description('Deploying infrastructure to AWS.')
 .action(async () => {
-  const requestInterceptorLambdaFunction = await fs.readFile(path.join(underscoreDirname, 'template/requestInterceptorLambdaFunction.js'));
-  const stackTemplate = stackTemplateProvider.getStack({
-    requestInterceptorLambdaFunctionString: requestInterceptorLambdaFunction.toString()
-  });
+  const stackTemplate = stackTemplateProvider.getStack({});
   
   const stsClient = new STSClient({});
   const callerIdentityResponse = await stsClient.send(new GetCallerIdentityCommand({}));
