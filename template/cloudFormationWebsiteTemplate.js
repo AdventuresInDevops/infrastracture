@@ -119,7 +119,7 @@ const stackProvider = {
             Name: { 'Fn::Sub': '_fb455c4f38feb55b3e93a76ff74aab46.login.${hostedName}.' },
             Type: 'CNAME',
             TTL: '300',
-            ResourceRecords: ['login.${hostedName}.hosted.authress.io']
+            ResourceRecords: [{ 'Fn::Sub': 'login.${hostedName}.hosted.authress.io' }]
           }
         },
         DmarcForLoginEmail: {
