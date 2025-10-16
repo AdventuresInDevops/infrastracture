@@ -187,11 +187,6 @@ const stackProvider = {
       }
     };
 
-    // Temporarily set these values to be small so that we do not break anything. Later after fully migrating we can remove this and restore the correct values.
-    Object.values(stack.Resources).filter(r => r.Type === 'AWS::Route53::RecordSet').map(r => {
-      r.Properties.TTL = '300';
-    });
-
     return stack;
   }
 };
