@@ -45,7 +45,7 @@ jobs:
 
 
     - name: Configure AWS Credentials
-      if: github.repository_owner == 'adventuresindevops'
+      if: github.repository_owner == 'adventuresindevops' && github.ref != 'refs/heads/main' && github.event_name == 'push'
       uses: aws-actions/configure-aws-credentials@v5.0.0
       with:
         aws-region: us-east-1
@@ -54,7 +54,7 @@ jobs:
         role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/GitHubRunnerAssumedRole
         role-session-name: GitHubRunner-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ github.run_number }}
     - name: Create Github Release and Tag
-      if: github.repository_owner == 'adventuresindevops'
+      if: github.repository_owner == 'adventuresindevops' && github.ref != 'refs/heads/main' && github.event_name == 'push'
       run: |
         TAG=${GITHUB_REF/refs\/heads\/release\//}
         TAG=${TAG/refs\/heads\/main/0.0}
@@ -62,5 +62,5 @@ jobs:
         git tag ${TAG}.$GITHUB_RUN_NUMBER
         git push origin ${TAG}.$GITHUB_RUN_NUMBER
     - name: Deploy
-      if: github.repository_owner == 'adventuresindevops'
+      if: github.repository_owner == 'adventuresindevops' && github.ref != 'refs/heads/main' && github.event_name == 'push'
       run: yarn deploy
