@@ -18,14 +18,15 @@ const stackProvider = {
       },
 
       Resources: {
-        AccountCustomization: {
-          Type: 'AWS::UXC::AccountCustomization',
-          Properties: {
-            // https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-uxc-accountcustomization.html#cfn-uxc-accountcustomization-accountcolor
-            AccountColor: 'green',
-            VisibleRegions: ['us-east-1', 'eu-west-1']
-          }
-        },
+        // Already exists before import.
+        // AccountCustomization: {
+        //   Type: 'AWS::UXC::AccountCustomization',
+        //   Properties: {
+        //     // https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-uxc-accountcustomization.html#cfn-uxc-accountcustomization-accountcolor
+        //     AccountColor: 'green',
+        //     VisibleRegions: ['us-east-1', 'eu-west-1']
+        //   }
+        // },
         AdventuresInDevopsHostedZone: {
           Type: 'AWS::Route53::HostedZone',
           Properties: {
