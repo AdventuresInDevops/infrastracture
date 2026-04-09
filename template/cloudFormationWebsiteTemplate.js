@@ -21,6 +21,7 @@ const stackProvider = {
         AccountCustomization: {
           Type: 'AWS::UXC::AccountCustomization',
           Properties: {
+            // https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-uxc-accountcustomization.html#cfn-uxc-accountcustomization-accountcolor
             AccountColor: 'green',
             VisibleRegions: ['us-east-1', 'eu-west-1']
           }
@@ -188,6 +189,36 @@ const stackProvider = {
             Type: 'CNAME',
             TTL: '300',
             ResourceRecords: ['mail.hosted.authress.io']
+          }
+        },
+
+        ApplicationEncryptionKey: {
+          Type: 'AWS::KMS::Key',
+          Properties: {
+            Description: { 'Fn::Sub': 'Symmetric encryption key for ${serviceName}' },
+            KeySpec: 'SYMMETRIC_DEFAULT',
+            KeyUsage: 'ENCRYPT_DECRYPT',
+            MultiRegion: true,
+            EnableKeyRotation: false,
+            KeyPolicy: {
+              Version: '2012-10-17',
+              Statement: [
+                {
+                  Sid: 'Enable IAM User Permissions',
+                  Effect: 'Allow',
+                  Principal: { AWS: { 'Fn::Sub': 'arn:aws:iam::${AWS::AccountId}:root' } },
+                  Action: 'kms:*',
+                  Resource: '*'
+                }
+              ]
+            }
+          }
+        },
+        ApplicationEncryptionKeyAlias: {
+          Type: 'AWS::KMS::Alias',
+          Properties: {
+            AliasName: { 'Fn::Sub': 'alias/${serviceName}' },
+            TargetKeyId: { Ref: 'ApplicationEncryptionKey' }
           }
         }
 
